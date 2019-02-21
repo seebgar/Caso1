@@ -33,6 +33,9 @@ public class Main {
 		} catch (Exception e) {
 			System.out.println(" -- Exception Reading File : "  +  txt + " --\n" + e.getMessage() + "\n \n");
 		} 
+		/**
+		 * -- -- --
+		 */
 
 
 		System.out.println(clients + " - " + messages + " - " + servers + " - " + buffer_size);

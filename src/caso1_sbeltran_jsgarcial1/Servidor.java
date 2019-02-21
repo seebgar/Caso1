@@ -8,6 +8,6 @@ package caso1_sbeltran_jsgarcial1;
  *  al cliente que se encuentra a la espera dormido en el mensaje.
  * 
  */
-public class Servidor {
+public class Servidor extends Thread {
 
 }

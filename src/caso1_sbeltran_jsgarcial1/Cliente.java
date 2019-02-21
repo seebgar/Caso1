@@ -8,6 +8,6 @@ package caso1_sbeltran_jsgarcial1;
  * realiza dormido sobre el objeto mensaje (espera pasiva).
  * 
  */
-public class Cliente {
+public class Cliente extends Thread {
 
 }
