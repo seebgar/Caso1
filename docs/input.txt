@@ -1,0 +1,5 @@
+Caso 1 
+clientes::5
+mensajes_por_cliente::10
+servidores::15
+buffer::20
