@@ -9,9 +9,12 @@ package caso1_sbeltran_jsgarcial1;
  * 
  */
 public class Servidor extends Thread {
+	private Buffer buffer;
+	private int mensajesPorAlmacenar;
 	
-	public Servidor() {
-		
+	public Servidor(int mensajes, Buffer buffer) {
+		this.mensajesPorAlmacenar = mensajes;
+		this.buffer = buffer;
 	}
 
 	public static void retirarDeBuffer() {
@@ -23,6 +26,11 @@ public class Servidor extends Thread {
 	}
 	
 	public void run() {
-
+		while (buffer.getBuff().size()>0){
+			Mensaje mens = buffer.retirar();
+			mens.setContenido(-1);
+			mensajesPorAlmacenar--;
+			buffer.almacenar(mens);
+		}
 	}
 }

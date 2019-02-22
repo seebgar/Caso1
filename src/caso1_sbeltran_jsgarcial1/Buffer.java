@@ -15,7 +15,19 @@ public class Buffer {
 	 */
 	
 	
-	private ArrayList<Integer> buff;
+	private ArrayList<Mensaje> buff;
+	public ArrayList<Mensaje> getBuff() {
+		return buff;
+	}
+
+
+
+	public void setBuff(ArrayList<Mensaje> buff) {
+		this.buff = buff;
+	}
+
+
+
 	private int n;
 	
 	Object lleno;
@@ -30,7 +42,7 @@ public class Buffer {
 	
 	public Buffer(int n) {
 		this.n = n;
-		buff = new ArrayList<Integer>();
+		buff = new ArrayList<Mensaje>();
 		lleno = new Object();
 		vacio = new Object();
 	}
@@ -42,7 +54,7 @@ public class Buffer {
 	 */
 	
 	
-	public void almacenar(Integer i) {
+	public void almacenar(Mensaje i) {
 		synchronized (lleno) {
 			while (buff.size() == n) {
 				try {
@@ -63,7 +75,7 @@ public class Buffer {
 	
 	
 	
-	public Integer retirar() {
+	public Mensaje retirar() {
 		synchronized (vacio) {
 			while (buff.size() == 0) {
 				try {
@@ -74,7 +86,7 @@ public class Buffer {
 				}
 			}
 		}
-		Integer i;
+		Mensaje i;
 
 		synchronized (this) {
 			i = buff.remove(0);
