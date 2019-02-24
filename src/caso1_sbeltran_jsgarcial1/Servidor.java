@@ -14,6 +14,7 @@ public class Servidor extends Thread {
 	 * Atributos
 	 */
 	private Buffer buffer;
+	private static boolean exit = false;
 	
 	/**
 	 * Constructor
@@ -21,6 +22,12 @@ public class Servidor extends Thread {
 	public Servidor( Buffer buffer) {
 		this.buffer = buffer;
 	}
+	/**
+	 * Metodo para parar los threads servidor
+	 */
+	public void stopThread(){
+        exit = true;
+    }
 
 	/**
 	 * Run
@@ -29,8 +36,7 @@ public class Servidor extends Thread {
 	@SuppressWarnings("static-access")
 	public void run() {
 		
-		while (buffer.get_nClientes() > 0) { // TODO intento de = "los threads servidores deben terminar cuando no haya mas clientes"
-			
+		while (buffer.get_nClientes() > 0 && !exit) { // TODO intento de = "los threads servidores deben terminar cuando no haya mas clientes"
 			Mensaje mens = buffer.retirar(); // recibe un mensaje del Cliente 
 			if ( mens != null ) {
 				mens.setContenido(mens.getContenido()*-1000);
