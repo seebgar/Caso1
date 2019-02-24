@@ -15,26 +15,21 @@ public class Mensaje {
 	/**
 	 * Atributos
 	 */
-	
 	private int contenido;
-	
 	private Cliente cliente;
 	
 	
 	/**
 	 * Constructor
 	 */
-	
 	public Mensaje( int contenido, Cliente _cliente ) {
 		this.cliente = _cliente;
 		this.contenido = contenido;
 	}
 	
-	
 	/**
 	 * Metodos
 	 */
-
 	
 	public int getContenido() {
 		return contenido;

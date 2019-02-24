@@ -20,50 +20,59 @@ public class Cliente extends Thread {
 	/**
 	 * Atributos
 	 */
-
 	private int mensajes;
-
 	private Mensaje[] msgs;
-
 	private Buffer buffer;
+	Mensaje por_responder; // objeto sobre el cual se duerme el Cliente al esperar la respuesta del Servidor
 
 
 	/**
 	 * Constructor
 	 */
-
 	public Cliente( int cantidad_mensajes, Buffer buff ) {
 		this.mensajes = cantidad_mensajes;
 		this.buffer = buff;
 		this.msgs = new Mensaje[this.mensajes];
+		por_responder = null;
 
 		for (int i = 0; i < msgs.length; i++) 
 			this.msgs[i] = new Mensaje(i, this);
 	}
 
-
 	/**
 	 * Run
 	 */
-
+	@SuppressWarnings("static-access")
 	@Override
 	public void run() {
 		int N = 0;
 		while ( mensajes > 0 ) {
-			Mensaje enviando = msgs[N];
-			// TODO almacenar en BUFFER
+			
+			por_responder = msgs[N];
+			buffer.almacenar(por_responder); // se envia un mensaje y se queda a la espera de la respuesta
 			mensajes--;
 			N++;
+			
+			synchronized (por_responder) {
+				try {
+					por_responder.wait();
+				} catch (Exception e) {
+					e.getStackTrace();
+				}
+			}
+			System.out.println(por_responder.getContenido()); // respuesta del servidor
+			this.yield();
+			
 		}
-
+		buffer.eliminiar_cliente(); // intento de = "los threads servidores deben terminar cuando no haya mas clientes"
 	}
-
+	
 
 	/**
 	 * Metodos
 	 */
-
-
+	
+	
 	public int getMensajes() {
 		return mensajes;
 	}

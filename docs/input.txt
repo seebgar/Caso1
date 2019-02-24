@@ -1,5 +1,5 @@
 Caso 1 
-clientes::5
-mensajes_por_cliente::10
-servidores::15
-buffer::20
+clientes::3
+mensajes_por_cliente::5
+servidores::2
+buffer::2

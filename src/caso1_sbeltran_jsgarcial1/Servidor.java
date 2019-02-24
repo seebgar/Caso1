@@ -1,36 +1,49 @@
 package caso1_sbeltran_jsgarcial1;
 
 /**
- * Cada servidor, por su parte, estaÌ� continuamente intentando retirar 
+ * Cada servidor, por su parte, esta continuamente intentando retirar 
  * mensajes del buffer; si no es posible, vuelve a intentarlo (espera activa). 
- * Sin embargo, el servidor debe ceder el procesador despueÌ�s de cada intento (meÌ�todo yield).
+ * Sin embargo, el servidor debe ceder el procesador despues de cada intento (metodo yield).
  *  Una vez retirado el mensaje, genera una respuesta, y procede a despertar 
  *  al cliente que se encuentra a la espera dormido en el mensaje.
  * 
  */
 public class Servidor extends Thread {
-	private Buffer buffer;
-	private int mensajesPorAlmacenar;
 	
-	public Servidor(int mensajes, Buffer buffer) {
-		this.mensajesPorAlmacenar = mensajes;
+	/**
+	 * Atributos
+	 */
+	private Buffer buffer;
+	
+	/**
+	 * Constructor
+	 */
+	public Servidor( Buffer buffer) {
 		this.buffer = buffer;
 	}
 
-	public static void retirarDeBuffer() {
-		//TODO retirar mensaje del buffer
-	}
-	
-	public static void despierta() {
-		//TODO Despertar al cliente
-	}
-	
+	/**
+	 * Run
+	 */	
+
+	@SuppressWarnings("static-access")
 	public void run() {
-		while (buffer.getBuff().size()>0){
-			Mensaje mens = buffer.retirar();
-			mens.setContenido(-1);
-			mensajesPorAlmacenar--;
-			buffer.almacenar(mens);
+		
+		while (buffer.get_nClientes() > 0) { // TODO intento de = "los threads servidores deben terminar cuando no haya mas clientes"
+			
+			Mensaje mens = buffer.retirar(); // recibe un mensaje del Cliente 
+			if ( mens != null ) {
+				mens.setContenido(mens.getContenido()*-1000);
+				synchronized (mens) {
+					mens.notify(); // despierta al Cliente que duerme en el objeto Mensaje esperando por la respuesta
+				}
+			}	
+			
+			this.yield(); // cede el procesador luego de cada intento de recibir un mensaje
 		}
+		
 	}
+	
+	
+	
 }
