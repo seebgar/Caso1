@@ -60,8 +60,8 @@ public class Cliente extends Thread {
 					e.getStackTrace();
 				}
 			}
-			System.out.println(por_responder.getContenido()); // respuesta del servidor
-			this.yield();
+			//System.out.println(por_responder.getContenido()); // respuesta del servidor
+			this.yield(); // cede el rpocesador cuando recibe su respuesta
 		}
 		
 		Buffer.eliminiar_cliente();
