@@ -17,7 +17,7 @@ public class Buffer {
 	 */
 	private LinkedList<Mensaje> buff;
 	private int n;	
-	private int n_clientes;
+	private static int n_clientes;
 	Object lleno;
 	Object vacio;
 
@@ -25,9 +25,8 @@ public class Buffer {
 	/**
 	 * Constructor
 	 */
-	public Buffer(int n, int n_clientes) {
+	public Buffer(int n) {
 		this.n = n;
-		this.n_clientes = n_clientes;
 		buff = new LinkedList<Mensaje>();
 		lleno = new Object();
 		vacio = new Object();
@@ -64,6 +63,7 @@ public class Buffer {
 		synchronized (vacio) {
 			vacio.notify(); // Notifica al Servidor que puede empezar a leer
 		}
+		
 	}
 
 
@@ -103,12 +103,16 @@ public class Buffer {
 	 * Cada vez que un cliente termine de mandar sus
 	 * mensajes, se le notifica al buffer
 	 */
-	public void eliminiar_cliente() {
-		this.n_clientes--;
+	public static void eliminiar_cliente() {
+		Buffer.n_clientes--;
 	}
 	
-	public int get_nClientes() {
-		return this.n_clientes;
+	public static int get_nClientes() {
+		return Buffer.n_clientes;
+	}
+	
+	public static void set_nClientes(int x) {
+		Buffer.n_clientes = x;
 	}
 
 

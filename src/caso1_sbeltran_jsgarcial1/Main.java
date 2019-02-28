@@ -38,10 +38,11 @@ public class Main {
 		 */
 
 
-		System.out.println(String.format("%d Clientes\n%d Mensajes por Cliente\n%d Servidores\n%d Buffer\n", clients, messages, servers, buffer_size));
+		//System.out.println(String.format("%d Clientes\n%d Mensajes por Cliente\n%d Servidores\n%d Buffer\n", clients, messages, servers, buffer_size));
 
-		Buffer buff = new Buffer(buffer_size, clients);
-		
+		Buffer buff = new Buffer(buffer_size);
+		Buffer.set_nClientes(clients);
+				
 		for ( int i = 0; i < clients; i++ ) {
 			Cliente p = new Cliente(messages, buff);
 			p.start();
@@ -50,9 +51,12 @@ public class Main {
 		for ( int i = 0; i < servers; i++ ) {
 			Servidor c = new Servidor(buff);
 			c.start();
-		}		
-
+		}
+	
 	}
+	
+	
+	
 	
 
 }

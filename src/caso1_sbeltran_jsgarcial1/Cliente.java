@@ -62,9 +62,10 @@ public class Cliente extends Thread {
 			}
 			System.out.println(por_responder.getContenido()); // respuesta del servidor
 			this.yield();
-			
 		}
-		buffer.eliminiar_cliente(); // intento de = "los threads servidores deben terminar cuando no haya mas clientes"
+		
+		Buffer.eliminiar_cliente();
+		//System.out.println(Buffer.get_nClientes());
 	}
 	
 
